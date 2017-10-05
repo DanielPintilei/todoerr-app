@@ -1,0 +1,14 @@
+{
+  "parser": "babel-eslint",
+  "settings": {
+    "import/resolver": "webpack"
+  },
+  "env": {
+    "browser": true
+  },
+  "extends": ["standard", "standard-react"],
+  "rules": {
+    "arrow-parens": 0,
+    "comma-dangle": ["error", "always-multiline"]
+  }
+}
