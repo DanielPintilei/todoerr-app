@@ -5,13 +5,13 @@ module.exports = function (app) {
     const starterTodos = [
       {
         username: 'react',
-        todo: 'Be nice',
-        isDone: false,
+        text: 'Be nice',
+        completed: false,
       },
       {
         username: 'react',
-        todo: 'Talk less',
-        isDone: false,
+        text: 'Talk less',
+        completed: false,
       },
     ]
     Todos.create(starterTodos, function (err, results) {

@@ -21,8 +21,8 @@ module.exports = function (app) {
       Todos.findByIdAndUpdate(
         req.body.id,
         {
-          todo: req.body.todo,
-          isDone: req.body.isDone,
+          text: req.body.text,
+          completed: req.body.completed,
         },
         function (err, todo) {
           if (err) throw err
@@ -32,8 +32,8 @@ module.exports = function (app) {
     } else {
       const newTodo = Todos({
         username: 'react',
-        todo: req.body.todo,
-        isDone: req.body.isDone,
+        text: req.body.text,
+        completed: req.body.completed,
       })
       newTodo.save(function (err) {
         if (err) throw err
