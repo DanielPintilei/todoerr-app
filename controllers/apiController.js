@@ -23,7 +23,6 @@ module.exports = function (app) {
         {
           todo: req.body.todo,
           isDone: req.body.isDone,
-          hasAttachment: req.body.hasAttachment,
         },
         function (err, todo) {
           if (err) throw err
@@ -32,10 +31,9 @@ module.exports = function (app) {
       )
     } else {
       const newTodo = Todos({
-        username: 'test',
+        username: 'react',
         todo: req.body.todo,
         isDone: req.body.isDone,
-        hasAttachment: req.body.hasAttachment,
       })
       newTodo.save(function (err) {
         if (err) throw err

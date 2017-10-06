@@ -6,7 +6,6 @@ const todoSchema = new Schema({
   username: String,
   todo: String,
   isDone: Boolean,
-  HasAttachment: Boolean,
 })
 
 const Todos = mongoose.model('Todos', todoSchema)

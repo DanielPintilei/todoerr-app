@@ -1,32 +1,113 @@
 .App {
-  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.book {
+  width: 450px;
+  max-width: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
 }
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.label-checkbox {
+  height: 24px;
 }
-
-.App-title {
-  font-size: 1.5em;
+.icon {
+  margin-right: 5px;
 }
-
-.App-intro {
-  font-size: large;
+.icon-svg {
+  stroke: plum;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.icon-svg.on {
+  stroke: mediumspringgreen;
+}
+button:active,
+label:active .icon,
+.icon:active {
+  transform: scale(0.9);
+}
+input[type='checkbox'] {
+  display: none;
+}
+input[type='checkbox']:checked + .icon-checkbox .off {
+  display: none;
+}
+input[type='checkbox']:not(:checked) + .icon-checkbox .on {
+  display: none;
+}
+.header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.toggle-all {
+  flex-shrink: 0;
+}
+.input {
+  flex-grow: 1;
+  height: 40px;
+  padding-left: 20px;
+  font-size: 14px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+.header,
+.main {
+  padding: 4px 8px;
+  background-color: floralwhite;
+  border-radius: 5px;
+  box-shadow: 0 2px 2px 0 aqua;
+}
+.main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.list {
+  flex-grow: 1;
+  padding: 0;
+}
+.item {
+  display: flex;
+  align-items: center;
+}
+.checkbox {
+  flex-shrink: 0;
+}
+.item-text {
+  flex-grow: 1;
+  margin: 0;
+  padding: 4px 20px;
+  font-size: 15px;
+  color: midnightblue;
+}
+.edit {
+  flex-shrink: 0;
+}
+.delete {
+  flex-shrink: 0;
+}
+.footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.counter {
+  width: 100px;
+  padding-bottom: 2px;
+  font-size: 13px;
+  color: gray;
+}
+.filters {
+  display: flex;
+}
+.filter {
+}
+.clear {
 }
