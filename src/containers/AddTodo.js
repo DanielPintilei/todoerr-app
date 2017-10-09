@@ -1,9 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { addTodo } from '../actions'
+import { addTodo, toggleAll } from '../actions'
 
 let AddTodo = ({ dispatch }) => {
   let input
+  let checkbox
   return (
     <div>
       <form
@@ -17,8 +19,17 @@ let AddTodo = ({ dispatch }) => {
         }}
       >
         <header className='header'>
-          <label className='label-checkbox'>
-            <input type='checkbox' className='checkbox toggle-all' />
+          <label
+            onClick={() => dispatch(toggleAll(checkbox.checked))}
+            className='label-checkbox'
+          >
+            <input
+              type='checkbox'
+              className='checkbox toggle-all'
+              ref={node => {
+                checkbox = node
+              }}
+            />
             <svg className='icon icon-checkbox' width='24' height='24'>
               <use className='off' xlinkHref='#iconCheck' />
               <use className='on' xlinkHref='#iconCheckOn' />
@@ -53,6 +64,11 @@ let AddTodo = ({ dispatch }) => {
     </div>
   )
 }
+
+AddTodo.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+}
+
 AddTodo = connect()(AddTodo)
 
 export default AddTodo

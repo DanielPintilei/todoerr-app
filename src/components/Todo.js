@@ -9,7 +9,12 @@ const Todo = ({ onClick, onDelete, completed, text }) => (
     }}
   >
     <label className='label-checkbox'>
-      <input type='checkbox' checked={completed} className='checkbox toggle' />
+      <input
+        type='checkbox'
+        checked={completed}
+        readOnly
+        className='checkbox toggle'
+      />
       <svg
         className='icon icon-checkbox'
         width='24'

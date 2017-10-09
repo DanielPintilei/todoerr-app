@@ -20,7 +20,8 @@ const Footer = ({ itemsLeft = 0 }) => (
 )
 
 Footer.propTypes = {
-  itemsLeft: PropTypes.number.isRequired,
+  // itemsLeft: PropTypes.number.isRequired,
+  itemsLeft: PropTypes.number,
 }
 
 export default Footer
