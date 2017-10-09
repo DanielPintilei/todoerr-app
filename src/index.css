@@ -28,8 +28,6 @@ label {
   border: 1px solid deepskyblue;
   border-radius: 2px;
 }
-.button:focus,
-.button:active,
 .button.active,
 .button:hover {
   color: honeydew;

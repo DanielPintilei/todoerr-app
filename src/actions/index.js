@@ -27,3 +27,9 @@ export const deleteTodo = id => {
     id,
   }
 }
+
+export const deleteCompleted = () => {
+  return {
+    type: 'DELETE_COMPLETED',
+  }
+}

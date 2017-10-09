@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FilterLink from '../containers/FilterLink'
+import DeleteLink from '../containers/DeleteLink'
 
-const Footer = ({ itemsLeft = 0, onClearCompleted }) => (
+const Footer = ({ itemsLeft = 0 }) => (
   <footer className='footer'>
     <span className='counter'>
       {itemsLeft
@@ -14,15 +15,12 @@ const Footer = ({ itemsLeft = 0, onClearCompleted }) => (
       <FilterLink filter='SHOW_ACTIVE'>Active</FilterLink>
       <FilterLink filter='SHOW_COMPLETED'>Completed</FilterLink>
     </div>
-    <button className='button clear' onClick={onClearCompleted}>
-      Clear Completed
-    </button>
+    <DeleteLink />
   </footer>
 )
 
 Footer.propTypes = {
   itemsLeft: PropTypes.number.isRequired,
-  onClearCompleted: PropTypes.func.isRequired,
 }
 
 export default Footer
