@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Todo = ({ onClick, completed, text }) => (
+const Todo = ({ onClick, onDelete, completed, text }) => (
   <li
     className='item'
     style={{
@@ -9,7 +9,7 @@ const Todo = ({ onClick, completed, text }) => (
     }}
   >
     <label className='label-checkbox'>
-      <input type='checkbox' className='checkbox toggle' />
+      <input type='checkbox' checked={completed} className='checkbox toggle' />
       <svg
         className='icon icon-checkbox'
         width='24'
@@ -26,7 +26,7 @@ const Todo = ({ onClick, completed, text }) => (
         <use className='' xlinkHref='#iconEdit' />
       </svg>
     </button>
-    <button className='delete'>
+    <button onClick={onDelete} className='delete'>
       <svg className='icon-delete' width='24' height='24'>
         <use className='' xlinkHref='#iconDelete' />
       </svg>
@@ -36,6 +36,7 @@ const Todo = ({ onClick, completed, text }) => (
 
 Todo.propTypes = {
   onClick: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   completed: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
 }

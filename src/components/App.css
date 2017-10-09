@@ -58,7 +58,7 @@ input[type='checkbox']:not(:checked) + .icon-checkbox .on {
   outline: none;
 }
 .icon-add {
-  stroke: lightgreen;
+  stroke: mediumspringgreen;
 }
 .header,
 .main {
