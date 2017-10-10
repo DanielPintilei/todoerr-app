@@ -7,13 +7,6 @@ export const addTodo = text => {
   }
 }
 
-// export const countUncompleted = number => {
-//   return {
-//     type: 'COUNT_UNCOMPLETED',
-//     number,
-//   }
-// }
-
 export const setVisibilityFilter = filter => {
   return {
     type: 'SET_VISIBILITY_FILTER',

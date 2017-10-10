@@ -2,32 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-let Counter = ({ itemsLeft }) => (
+let Counter = ({ counterUncompleted }) => (
   <span className='counter'>
-    {itemsLeft
-      ? itemsLeft === 1 ? `1 item left` : `${itemsLeft} items left`
-      : ''}
+    {counterUncompleted === 1
+      ? `1 item left`
+      : `${counterUncompleted} items left`}
   </span>
 )
 
-const mapStateToProps = (state, ownProps) => {
-  // return {
-  //   active: ownProps.filter === state.visibilityFilter,
-  // }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  // return {
-  //   onClick: () => {
-  //     dispatch(setVisibilityFilter(ownProps.filter))
-  //   },
-  // }
+const mapStateToProps = state => {
+  return {
+    counterUncompleted: state.todos.filter(todo => !todo.completed).length,
+  }
 }
 
 Counter.propTypes = {
-  itemsLeft: PropTypes.number.isRequired,
+  counterUncompleted: PropTypes.number.isRequired,
 }
 
-Counter = connect(mapStateToProps, mapDispatchToProps)(Counter)
+Counter = connect(mapStateToProps)(Counter)
 
 export default Counter

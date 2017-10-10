@@ -1,11 +1,11 @@
 import React from 'react'
-// import Counter from '../containers/Counter'
+import Counter from '../containers/Counter'
 import FilterLink from '../containers/FilterLink'
 import DeleteLink from '../containers/DeleteLink'
 
 const Footer = () => (
   <footer className='footer'>
-    {/* <Counter /> */}
+    {<Counter />}
     <div className='filters'>
       <FilterLink filter='SHOW_ALL'>All</FilterLink>
       <FilterLink filter='SHOW_ACTIVE'>Active</FilterLink>
