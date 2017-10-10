@@ -45,8 +45,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchData: url => dispatch(todosFetchData(url)),
-    onTodoClick: id => {
-      dispatch(toggleTodo(id))
+    onTodoClick: (id, completed) => {
+      dispatch(toggleTodo(id, completed))
       dispatch(toggleCheckboxAll(false))
     },
     onTodoDelete: id => {

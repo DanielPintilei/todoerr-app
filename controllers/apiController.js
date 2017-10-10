@@ -21,7 +21,7 @@ module.exports = function (app) {
       Todos.findByIdAndUpdate(
         req.body.id,
         {
-          text: req.body.text,
+          // text: req.body.text,
           completed: req.body.completed,
         },
         function (err, todo) {
@@ -40,6 +40,19 @@ module.exports = function (app) {
         res.send(todo._id)
       })
     }
+  })
+  app.post('/api/todo-all', function (req, res) {
+    Todos.update(
+      {},
+      {
+        completed: req.body.completed,
+      },
+      { multi: true },
+      function (err, todo) {
+        if (err) throw err
+        res.send('Success')
+      }
+    )
   })
   app.delete('/api/todo', function (req, res) {
     Todos.findByIdAndRemove(req.body.id, function (err) {

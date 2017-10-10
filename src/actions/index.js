@@ -65,10 +65,17 @@ export const setVisibilityFilter = filter => {
   }
 }
 
-export const toggleTodo = id => {
+export const toggleTodoLocal = id => {
   return {
     type: 'TOGGLE_TODO',
     id,
+  }
+}
+export const toggleTodo = (id, completed) => {
+  return dispatch => {
+    axios
+      .post('/todo', { id, completed: !completed })
+      .then(res => console.log(res) || dispatch(toggleTodoLocal(id)))
   }
 }
 
@@ -79,10 +86,17 @@ export const toggleCheckboxAll = checked => {
   }
 }
 
-export const toggleAll = checked => {
+export const toggleAllLocal = checked => {
   return {
     type: 'TOGGLE_ALL',
     checked,
+  }
+}
+export const toggleAll = checked => {
+  return dispatch => {
+    axios
+      .post('/todo-all', { completed: checked })
+      .then(res => console.log(res) || dispatch(toggleAllLocal(checked)))
   }
 }
 
