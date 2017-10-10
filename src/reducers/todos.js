@@ -1,15 +1,25 @@
-// import axios from 'axios'
+export const todosHasErrored = (state = false, action) => {
+  switch (action.type) {
+    case 'TODOS_HAS_ERRORED':
+      return action.hasErrored
+    default:
+      return state
+  }
+}
 
-// axios.defaults.baseURL = process.env.REACT_APP_API
-
-// export const fetchTodos = () => () => {
-//   axios.get('/todos/react').then(res => {
-//     console.log(res.data)
-//   })
-// }
+export const todosIsLoading = (state = false, action) => {
+  switch (action.type) {
+    case 'TODOS_IS_LOADING':
+      return action.isLoading
+    default:
+      return state
+  }
+}
 
 const todos = (state = [], action) => {
   switch (action.type) {
+    case 'TODOS_FETCH_DATA_SUCCESS':
+      return action.todos
     case 'ADD_TODO':
       return [
         ...state,

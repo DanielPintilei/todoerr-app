@@ -1,6 +1,25 @@
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { toggleTodo, deleteTodo, toggleCheckboxAll } from '../actions'
+import {
+  todosFetchData,
+  toggleTodo,
+  deleteTodo,
+  toggleCheckboxAll,
+} from '../actions'
 import TodoList from '../components/TodoList'
+
+class StatefulTodoList extends Component {
+  static propTypes = {
+    fetchData: PropTypes.func.isRequired,
+  }
+  componentDidMount () {
+    this.props.fetchData('/todos/react')
+  }
+  render () {
+    return <TodoList {...this.props} />
+  }
+}
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
@@ -18,11 +37,14 @@ const getVisibleTodos = (todos, filter) => {
 const mapStateToProps = state => {
   return {
     todos: getVisibleTodos(state.todos, state.visibilityFilter),
+    hasErrored: state.itemsHasErrored,
+    isLoading: state.itemsIsLoading,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchData: url => dispatch(todosFetchData(url)),
     onTodoClick: id => {
       dispatch(toggleTodo(id))
       dispatch(toggleCheckboxAll(false))
@@ -33,6 +55,8 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const VisibleTodoList = connect(mapStateToProps, mapDispatchToProps)(TodoList)
+const VisibleTodoList = connect(mapStateToProps, mapDispatchToProps)(
+  StatefulTodoList
+)
 
 export default VisibleTodoList

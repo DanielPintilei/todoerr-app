@@ -13,6 +13,10 @@ body {
   background-size: 30px 30px;
   background-position: 0 0, 15px 15px;
 }
+::selection {
+  color: #fff;
+  background-color: slateblue;
+}
 button,
 label {
   cursor: pointer;

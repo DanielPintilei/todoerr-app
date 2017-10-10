@@ -35,9 +35,9 @@ module.exports = function (app) {
         text: req.body.text,
         completed: req.body.completed,
       })
-      newTodo.save(function (err) {
+      newTodo.save(function (err, todo) {
         if (err) throw err
-        res.send('Success')
+        res.send(todo._id)
       })
     }
   })
@@ -46,5 +46,14 @@ module.exports = function (app) {
       if (err) throw err
       res.send('Success')
     })
+  })
+  app.delete('/api/todos', function (req, res) {
+    req.body.ids.forEach(id => {
+      Todos.findByIdAndRemove(id, function (err) {
+        if (err) throw err
+      })
+    })
+    console.log(req.body)
+    res.send(req.body)
   })
 }

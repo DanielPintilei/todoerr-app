@@ -1,7 +1,7 @@
 import React from 'react'
 import Counter from '../containers/Counter'
 import FilterLink from '../containers/FilterLink'
-import DeleteLink from '../containers/DeleteLink'
+import DeleteLinkContainer from '../containers/DeleteLinkContainer'
 
 const Footer = () => (
   <footer className='footer'>
@@ -11,7 +11,7 @@ const Footer = () => (
       <FilterLink filter='SHOW_ACTIVE'>Active</FilterLink>
       <FilterLink filter='SHOW_COMPLETED'>Completed</FilterLink>
     </div>
-    <DeleteLink />
+    <DeleteLinkContainer />
   </footer>
 )
 
