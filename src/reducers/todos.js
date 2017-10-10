@@ -1,3 +1,13 @@
+// import axios from 'axios'
+
+// axios.defaults.baseURL = process.env.REACT_APP_API
+
+// export const fetchTodos = () => () => {
+//   axios.get('/todos/react').then(res => {
+//     console.log(res.data)
+//   })
+// }
+
 const todos = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TODO':

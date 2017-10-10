@@ -1,15 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// import Counter from '../containers/Counter'
 import FilterLink from '../containers/FilterLink'
 import DeleteLink from '../containers/DeleteLink'
 
-const Footer = ({ itemsLeft = 0 }) => (
+const Footer = () => (
   <footer className='footer'>
-    <span className='counter'>
-      {itemsLeft
-        ? itemsLeft === 1 ? `1 item left` : `${itemsLeft} items left`
-        : ''}
-    </span>
+    {/* <Counter /> */}
     <div className='filters'>
       <FilterLink filter='SHOW_ALL'>All</FilterLink>
       <FilterLink filter='SHOW_ACTIVE'>Active</FilterLink>
@@ -18,10 +14,5 @@ const Footer = ({ itemsLeft = 0 }) => (
     <DeleteLink />
   </footer>
 )
-
-Footer.propTypes = {
-  // itemsLeft: PropTypes.number.isRequired,
-  itemsLeft: PropTypes.number,
-}
 
 export default Footer

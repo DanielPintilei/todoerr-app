@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import './App.css'
 import Footer from './Footer'
-import axios from 'axios'
+// import axios from 'axios'
 import AddTodo from '../containers/AddTodo'
 import VisibleTodoList from '../containers/VisibleTodoList'
 
-axios.defaults.baseURL = process.env.REACT_APP_API
+// axios.defaults.baseURL = process.env.REACT_APP_API
 
 class App extends Component {
   // state = {

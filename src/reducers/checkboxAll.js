@@ -1,10 +1,4 @@
-// const checkboxAll = (state = false, action) => {
-//   switch (action.type) {
-//     case 'RESET_CHECKBOX_ALL':
-//       return false
-//     default:
-//       return state
-//   }
-// }
+const checkboxAll = (state = false, action) =>
+  action.type === 'TOGGLE_CHECKBOX_ALL' ? action.checked : state
 
-// export default checkboxAll
+export default checkboxAll

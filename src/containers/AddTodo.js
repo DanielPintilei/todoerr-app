@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { addTodo, toggleAll } from '../actions'
+import { addTodo, toggleCheckboxAll, toggleAll } from '../actions'
 
-let AddTodo = ({ dispatch }) => {
+let AddTodo = ({ dispatch, checkboxAll }) => {
   let input
   let checkbox
   return (
@@ -15,22 +15,30 @@ let AddTodo = ({ dispatch }) => {
             return
           }
           dispatch(addTodo(input.value))
+          dispatch(toggleCheckboxAll(false))
           input.value = ''
         }}
       >
         <header className='header'>
-          <label
-            onClick={() => dispatch(toggleAll(checkbox.checked))}
-            className='label-checkbox'
-          >
+          <label className='label-checkbox'>
             <input
               type='checkbox'
               className='checkbox toggle-all'
+              checked={checkboxAll}
+              readOnly
               ref={node => {
                 checkbox = node
               }}
             />
-            <svg className='icon icon-checkbox' width='24' height='24'>
+            <svg
+              onClick={() => {
+                dispatch(toggleAll(!checkbox.checked))
+                dispatch(toggleCheckboxAll(!checkboxAll))
+              }}
+              className='icon icon-checkbox'
+              width='24'
+              height='24'
+            >
               <use className='off' xlinkHref='#iconCheck' />
               <use className='on' xlinkHref='#iconCheckOn' />
             </svg>
@@ -67,8 +75,11 @@ let AddTodo = ({ dispatch }) => {
 
 AddTodo.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  checkboxAll: PropTypes.bool.isRequired,
 }
 
-AddTodo = connect()(AddTodo)
+const mapStateToProps = state => state
+
+AddTodo = connect(mapStateToProps)(AddTodo)
 
 export default AddTodo

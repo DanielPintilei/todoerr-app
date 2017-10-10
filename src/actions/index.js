@@ -7,6 +7,13 @@ export const addTodo = text => {
   }
 }
 
+// export const countUncompleted = number => {
+//   return {
+//     type: 'COUNT_UNCOMPLETED',
+//     number,
+//   }
+// }
+
 export const setVisibilityFilter = filter => {
   return {
     type: 'SET_VISIBILITY_FILTER',
@@ -21,11 +28,12 @@ export const toggleTodo = id => {
   }
 }
 
-// export const resetCheckboxAll = () => {
-//   return {
-//     type: 'RESET_CHECKBOX_ALL',
-//   }
-// }
+export const toggleCheckboxAll = checked => {
+  return {
+    type: 'TOGGLE_CHECKBOX_ALL',
+    checked,
+  }
+}
 
 export const toggleAll = checked => {
   return {
