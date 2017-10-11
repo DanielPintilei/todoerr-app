@@ -38,6 +38,10 @@ const todos = (state = [], action) => {
       return state.map(todo => {
         return { ...todo, completed: action.checked }
       })
+    case 'EDIT_TODO':
+      return state.map(
+        todo => (todo.id === action.id ? { ...todo, text: action.text } : todo)
+      )
     case 'DELETE_TODO':
       return state.filter(todo => todo.id !== action.id)
     case 'DELETE_COMPLETED':

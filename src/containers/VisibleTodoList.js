@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import {
   todosFetchData,
   toggleTodo,
+  editTodo,
   deleteTodo,
   toggleCheckboxAll,
 } from '../actions'
@@ -48,6 +49,9 @@ const mapDispatchToProps = dispatch => {
     onTodoClick: (id, completed) => {
       dispatch(toggleTodo(id, completed))
       dispatch(toggleCheckboxAll(false))
+    },
+    onTodoEdit: (id, text) => {
+      dispatch(editTodo(id, text))
     },
     onTodoDelete: id => {
       dispatch(deleteTodo(id))

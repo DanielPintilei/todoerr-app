@@ -29,7 +29,7 @@ export const todosFetchData = url => {
         dispatch(todosIsLoading(false))
         return res
       })
-      .then(res => console.log(res.data) || res.data)
+      .then(res => res.data)
       .then(todos =>
         dispatch(
           todosFetchDataSuccess(
@@ -54,7 +54,7 @@ export const addTodo = text => {
   return dispatch => {
     axios
       .post('/todo', { text, completed: false })
-      .then(res => console.log(res) || dispatch(addTodoLocal(text, res.data)))
+      .then(res => dispatch(addTodoLocal(text, res.data)))
   }
 }
 
@@ -75,7 +75,7 @@ export const toggleTodo = (id, completed) => {
   return dispatch => {
     axios
       .post('/todo', { id, completed: !completed })
-      .then(res => console.log(res) || dispatch(toggleTodoLocal(id)))
+      .then(res => dispatch(toggleTodoLocal(id)))
   }
 }
 
@@ -96,7 +96,20 @@ export const toggleAll = checked => {
   return dispatch => {
     axios
       .post('/todo-all', { completed: checked })
-      .then(res => console.log(res) || dispatch(toggleAllLocal(checked)))
+      .then(res => dispatch(toggleAllLocal(checked)))
+  }
+}
+
+export const editTodoLocal = (id, text) => {
+  return {
+    type: 'EDIT_TODO',
+    id,
+    text,
+  }
+}
+export const editTodo = (id, text) => {
+  return dispatch => {
+    axios.post('/todo', { id, text }).then(dispatch(editTodoLocal(id, text)))
   }
 }
 

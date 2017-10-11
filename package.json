@@ -1,7 +1,6 @@
 {
-  "name": "todo-app",
+  "name": "todoerr-app",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "axios": "^0.16.2",
     "eslint-config-standard": "^10.2.1",

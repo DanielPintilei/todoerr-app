@@ -5,6 +5,7 @@ import Todo from './Todo'
 const TodoList = ({
   todos,
   onTodoClick,
+  onTodoEdit,
   onTodoDelete,
   hasErrored,
   isLoading,
@@ -18,6 +19,7 @@ const TodoList = ({
           key={todo.id}
           {...todo}
           onClick={() => onTodoClick(todo.id, todo.completed)}
+          onEdit={text => onTodoEdit(todo.id, text)}
           onDelete={() => onTodoDelete(todo.id)}
         />
       ))}
@@ -36,6 +38,7 @@ TodoList.propTypes = {
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
   onTodoClick: PropTypes.func.isRequired,
+  onTodoEdit: PropTypes.func.isRequired,
   onTodoDelete: PropTypes.func.isRequired,
 }
 

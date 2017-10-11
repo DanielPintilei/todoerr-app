@@ -18,17 +18,29 @@ module.exports = function (app) {
   })
   app.post('/api/todo', function (req, res) {
     if (req.body.id) {
-      Todos.findByIdAndUpdate(
-        req.body.id,
-        {
-          // text: req.body.text,
-          completed: req.body.completed,
-        },
-        function (err, todo) {
-          if (err) throw err
-          res.send('Success')
-        }
-      )
+      if (req.body.text) {
+        Todos.findByIdAndUpdate(
+          req.body.id,
+          {
+            text: req.body.text,
+          },
+          function (err, todo) {
+            if (err) throw err
+            res.send('Success')
+          }
+        )
+      } else {
+        Todos.findByIdAndUpdate(
+          req.body.id,
+          {
+            completed: req.body.completed,
+          },
+          function (err, todo) {
+            if (err) throw err
+            res.send('Success')
+          }
+        )
+      }
     } else {
       const newTodo = Todos({
         username: 'react',
@@ -66,7 +78,6 @@ module.exports = function (app) {
         if (err) throw err
       })
     })
-    console.log(req.body)
     res.send(req.body)
   })
 }
