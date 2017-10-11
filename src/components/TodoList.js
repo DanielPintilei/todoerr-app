@@ -11,7 +11,7 @@ const TodoList = ({
   isLoading,
 }) => {
   return hasErrored || isLoading ? (
-    '...'
+    <div className='no-list'>. . .</div>
   ) : (
     <ul className='list'>
       {todos.map(todo => (

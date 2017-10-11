@@ -72,6 +72,13 @@ input[type='checkbox']:not(:checked) + .icon-checkbox .on {
   flex-direction: column;
   height: 100%;
 }
+.no-list {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+}
 .list {
   flex-grow: 1;
   margin-top: 15px;
