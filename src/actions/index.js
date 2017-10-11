@@ -2,19 +2,19 @@ import axios from 'axios'
 
 axios.defaults.baseURL = process.env.REACT_APP_API
 
-export const todosHasErrored = bool => {
+const todosHasErrored = bool => {
   return {
     type: 'TODOS_HAS_ERRORED',
-    hasErrored: bool,
+    todosHasErrored: bool,
   }
 }
-export const todosIsLoading = bool => {
+const todosIsLoading = bool => {
   return {
     type: 'TODOS_IS_LOADING',
-    isLoading: bool,
+    todosIsLoading: bool,
   }
 }
-export const todosFetchDataSuccess = todos => {
+const todosFetchDataSuccess = todos => {
   return {
     type: 'TODOS_FETCH_DATA_SUCCESS',
     todos,
@@ -25,7 +25,7 @@ export const todosFetchData = url => {
     dispatch(todosIsLoading(true))
     axios(url)
       .then(res => {
-        if (res.statusText !== 'OK') throw Error(res.statusText)
+        if (res.status < 200 && res.status > 304) throw Error(res.status)
         dispatch(todosIsLoading(false))
         return res
       })
@@ -43,7 +43,7 @@ export const todosFetchData = url => {
   }
 }
 
-export const addTodoLocal = (text, id) => {
+const addTodoLocal = (text, id) => {
   return {
     type: 'ADD_TODO',
     id,
@@ -65,7 +65,7 @@ export const setVisibilityFilter = filter => {
   }
 }
 
-export const toggleTodoLocal = id => {
+const toggleTodoLocal = id => {
   return {
     type: 'TOGGLE_TODO',
     id,
@@ -86,7 +86,7 @@ export const toggleCheckboxAll = checked => {
   }
 }
 
-export const toggleAllLocal = checked => {
+const toggleAllLocal = checked => {
   return {
     type: 'TOGGLE_ALL',
     checked,
@@ -100,7 +100,7 @@ export const toggleAll = checked => {
   }
 }
 
-export const editTodoLocal = (id, text) => {
+const editTodoLocal = (id, text) => {
   return {
     type: 'EDIT_TODO',
     id,
@@ -113,7 +113,7 @@ export const editTodo = (id, text) => {
   }
 }
 
-export const deleteTodoLocal = id => {
+const deleteTodoLocal = id => {
   return {
     type: 'DELETE_TODO',
     id,
@@ -125,7 +125,7 @@ export const deleteTodo = id => {
   }
 }
 
-export const deleteCompletedLocal = () => {
+const deleteCompletedLocal = () => {
   return {
     type: 'DELETE_COMPLETED',
   }

@@ -1,7 +1,7 @@
 export const todosHasErrored = (state = false, action) => {
   switch (action.type) {
     case 'TODOS_HAS_ERRORED':
-      return action.hasErrored
+      return action.todosHasErrored
     default:
       return state
   }
@@ -10,7 +10,7 @@ export const todosHasErrored = (state = false, action) => {
 export const todosIsLoading = (state = false, action) => {
   switch (action.type) {
     case 'TODOS_IS_LOADING':
-      return action.isLoading
+      return action.todosIsLoading
     default:
       return state
   }

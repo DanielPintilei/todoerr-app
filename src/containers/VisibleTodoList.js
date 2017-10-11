@@ -38,8 +38,8 @@ const getVisibleTodos = (todos, filter) => {
 const mapStateToProps = state => {
   return {
     todos: getVisibleTodos(state.todos, state.visibilityFilter),
-    hasErrored: state.itemsHasErrored,
-    isLoading: state.itemsIsLoading,
+    hasErrored: state.todosHasErrored,
+    isLoading: state.todosIsLoading,
   }
 }
 
