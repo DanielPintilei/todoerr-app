@@ -1,6 +1,9 @@
 {
   "name": "todoerr-app",
   "version": "0.1.0",
+  "author": "Daniel Pintilei",
+  "license": "MIT",
+  "alias": "todoerr",
   "dependencies": {
     "axios": "^0.16.2",
     "eslint-config-standard": "^10.2.1",
@@ -21,8 +24,7 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "start": "npm run build && npm run serve",
-    "serve": "node index.js",
+    "start": "node index.js",
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
