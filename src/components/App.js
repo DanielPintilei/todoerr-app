@@ -1,23 +1,11 @@
 import React, { Component } from 'react'
 import './App.css'
 import Footer from './Footer'
-// import axios from 'axios'
 import AddTodo from '../containers/AddTodo'
 import VisibleTodoList from '../containers/VisibleTodoList'
 
-// axios.defaults.baseURL = process.env.REACT_APP_API
-
 class App extends Component {
-  // state = {
-  //   todos: [],
-  // }
-  // componentDidMount () {
-  //   axios.get('/todos/react').then(res => {
-  //     this.setState({ todos: res.data })
-  //   })
-  // }
   render () {
-    // const { todos } = this.state
     const SvgSymbols = () => (
       <svg style={{ display: 'none' }}>
         <symbol

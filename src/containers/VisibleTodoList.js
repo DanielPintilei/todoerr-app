@@ -35,29 +35,25 @@ const getVisibleTodos = (todos, filter) => {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    todos: getVisibleTodos(state.todos, state.visibilityFilter),
-    hasErrored: state.todosHasErrored,
-    isLoading: state.todosIsLoading,
-  }
-}
+const mapStateToProps = state => ({
+  todos: getVisibleTodos(state.todos, state.visibilityFilter),
+  hasErrored: state.todosHasErrored,
+  isLoading: state.todosIsLoading,
+})
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchData: url => dispatch(todosFetchData(url)),
-    onTodoClick: (id, completed) => {
-      dispatch(toggleTodo(id, completed))
-      dispatch(toggleCheckboxAll(false))
-    },
-    onTodoEdit: (id, text) => {
-      dispatch(editTodo(id, text))
-    },
-    onTodoDelete: id => {
-      dispatch(deleteTodo(id))
-    },
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  fetchData: url => dispatch(todosFetchData(url)),
+  onTodoClick: (id, completed) => {
+    dispatch(toggleTodo(id, completed))
+    dispatch(toggleCheckboxAll(false))
+  },
+  onTodoEdit: (id, text) => {
+    dispatch(editTodo(id, text))
+  },
+  onTodoDelete: id => {
+    dispatch(deleteTodo(id))
+  },
+})
 
 const VisibleTodoList = connect(mapStateToProps, mapDispatchToProps)(
   StatefulTodoList

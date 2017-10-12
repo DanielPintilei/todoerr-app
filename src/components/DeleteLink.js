@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const DeleteLink = ({ onClick, todosToDelete }) => {
-  return (
-    <button onClick={() => onClick(todosToDelete)} className='button clear'>
-      Clear Completed
-    </button>
-  )
-}
+const DeleteLink = ({ onClick, todosToDelete }) => (
+  <button onClick={() => onClick(todosToDelete)} className='button clear'>
+    Clear Completed
+  </button>
+)
 
 DeleteLink.propTypes = {
   onClick: PropTypes.func.isRequired,

@@ -9,8 +9,8 @@ const TodoList = ({
   onTodoDelete,
   hasErrored,
   isLoading,
-}) => {
-  return hasErrored || isLoading ? (
+}) =>
+  hasErrored || isLoading ? (
     <div className='no-list'>. . .</div>
   ) : (
     <ul className='list'>
@@ -25,7 +25,6 @@ const TodoList = ({
       ))}
     </ul>
   )
-}
 
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(

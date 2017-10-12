@@ -10,11 +10,9 @@ let Counter = ({ counterUncompleted }) => (
   </span>
 )
 
-const mapStateToProps = state => {
-  return {
-    counterUncompleted: state.todos.filter(todo => !todo.completed).length,
-  }
-}
+const mapStateToProps = state => ({
+  counterUncompleted: state.todos.filter(todo => !todo.completed).length,
+})
 
 Counter.propTypes = {
   counterUncompleted: PropTypes.number.isRequired,
