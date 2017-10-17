@@ -1,10 +1,22 @@
 import React, { Component } from 'react'
 import './App.css'
+import Auth from '../containers/Auth'
 import Footer from './Footer'
 import AddTodo from '../containers/AddTodo'
 import VisibleTodoList from '../containers/VisibleTodoList'
 
 class App extends Component {
+  state = {
+    auth: false,
+    authViewToggled: false,
+  }
+  toggleAuth = ev => {
+    ev.preventDefault()
+    this.setState({ authViewToggled: !this.state.authViewToggled })
+  }
+  onSubmit (ev) {
+    ev.preventDefault()
+  }
   render () {
     const SvgSymbols = () => (
       <svg style={{ display: 'none' }}>
@@ -63,16 +75,25 @@ class App extends Component {
         </symbol>
       </svg>
     )
+    const { auth, authViewToggled } = this.state
     return (
       <div className='App'>
         <SvgSymbols />
-        <div className='book'>
-          <AddTodo />
-          <section className='main'>
-            <VisibleTodoList />
-            <Footer />
-          </section>
-        </div>
+        {auth ? (
+          <div className='book'>
+            <AddTodo />
+            <section className='main'>
+              <VisibleTodoList />
+              <Footer />
+            </section>
+          </div>
+        ) : (
+          <Auth
+            authViewToggled={authViewToggled}
+            onToggleAuth={this.toggleAuth}
+            onSubmit={this.onSubmit}
+          />
+        )}
       </div>
     )
   }
