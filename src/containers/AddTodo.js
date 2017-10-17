@@ -35,7 +35,7 @@ let AddTodo = ({ dispatch, checkboxAll }) => {
                 dispatch(toggleAll(!checkbox.checked))
                 dispatch(toggleCheckboxAll(!checkboxAll))
               }}
-              className='icon icon-checkbox'
+              className='icon-checkbox'
               width='24'
               height='24'
             >

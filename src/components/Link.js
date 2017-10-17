@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 const Link = ({ active, children, onClick }) =>
   active ? (
-    <button className='button filter active'>{children}</button>
+    <button className='button active'>{children}</button>
   ) : (
-    <button onClick={onClick} className='button filter'>
+    <button onClick={onClick} className='button'>
       {children}
     </button>
   )

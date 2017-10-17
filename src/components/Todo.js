@@ -18,7 +18,7 @@ const Todo = ({ onClick, onEdit, onDelete, completed, text }) => {
           className='checkbox toggle'
         />
         <svg
-          className='icon icon-checkbox'
+          className='icon-checkbox'
           width='24'
           height='24'
           onClick={onClick}
