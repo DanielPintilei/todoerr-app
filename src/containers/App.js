@@ -1,21 +1,37 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import './App.css'
-import Auth from '../containers/Auth'
-import Footer from './Footer'
-import AddTodo from '../containers/AddTodo'
-import VisibleTodoList from '../containers/VisibleTodoList'
+import Auth from '../components/Auth'
+import Footer from '../components/Footer'
+import AddTodo from './AddTodo'
+import VisibleTodoList from './VisibleTodoList'
+// import { authSetToken, authDiscardToken, authSetUser } from '../actions'
+// import { loginUser, logoutUser } from '../actions'
+import { loginUser } from '../actions'
 
 class App extends Component {
   state = {
-    auth: false,
     authViewToggled: false,
+  }
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string,
+    // submitForm: PropTypes.func.isRequired,
+  }
+  componentDidMount () {
+    // console.log(this.props)
   }
   toggleAuth = ev => {
     ev.preventDefault()
     this.setState({ authViewToggled: !this.state.authViewToggled })
   }
-  onSubmit (ev) {
+  onSubmit = ev => {
     ev.preventDefault()
+    // this.props.submitForm()
+    this.props.dispatch(loginUser())
+    // console.log(this.props)
   }
   render () {
     const SvgSymbols = () => (
@@ -75,11 +91,12 @@ class App extends Component {
         </symbol>
       </svg>
     )
-    const { auth, authViewToggled } = this.state
+    const { isAuthenticated, errorMessage } = this.props
+    const { authViewToggled } = this.state
     return (
       <div className='App'>
         <SvgSymbols />
-        {auth ? (
+        {isAuthenticated ? (
           <div className='book'>
             <AddTodo />
             <section className='main'>
@@ -92,6 +109,7 @@ class App extends Component {
             authViewToggled={authViewToggled}
             onToggleAuth={this.toggleAuth}
             onSubmit={this.onSubmit}
+            errorMessage={errorMessage}
           />
         )}
       </div>
@@ -99,4 +117,26 @@ class App extends Component {
   }
 }
 
-export default App
+// const mapStateToProps = state =>
+//   console.log(state) || {
+//     isAuthenticated: state.auth.isAuthenticated,
+//     errorMessage: state.auth.errorMessage,
+//   }
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  errorMessage: state.auth.errorMessage,
+})
+
+// const mapStateToProps = state => ({
+//   isAuthenticated: state.auth.token || '',
+// })
+
+// const mapDispatchToProps = dispatch => ({
+//   submitForm: () => {
+//     // dispatch(authSetToken('1234567890'))
+//     dispatch(loginUser())
+//   },
+// })
+
+// export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps)(App)

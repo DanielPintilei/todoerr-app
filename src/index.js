@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import todoApp from './reducers'
 import './index.css'
-import App from './components/App'
+import App from './containers/App'
 import registerServiceWorker from './registerServiceWorker'
 
 let store = createStore(todoApp, applyMiddleware(thunk))

@@ -1,14 +1,31 @@
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
+const routes = require('./server/routes')
 const config = require('./server/config')
-const setupController = require('./server/controllers/setupController')
-const apiController = require('./server/controllers/apiController')
 
 const port = process.env.PORT || 3300
 
+const User = mongoose.model('User')
+
+passport.use(
+  new LocalStrategy({ usernameField: 'email' }, (username, password, done) => {
+    User.findOne({ email: username }, (err, user) => {
+      if (err) return done(err)
+      if (!user) return done(null, false, { message: 'User not found' })
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Password is wrong' })
+      }
+      return done(null, user)
+    })
+  })
+)
+
 if (!process.env.NOW) {
-  app.use(function (req, res, next) {
+  app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE')
     res.header(
@@ -18,12 +35,19 @@ if (!process.env.NOW) {
     next()
   })
 }
-
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(passport.initialize())
 app.use(express.static('build'))
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401)
+    res.json({ message: err.name + ': ' + err.message })
+  }
+})
 
 mongoose.connect(config.getDbConnectionString())
 
-setupController(app)
-apiController(app)
+routes(app)
 
 app.listen(port)

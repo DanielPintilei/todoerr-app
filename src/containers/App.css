@@ -17,6 +17,7 @@
   }
 }
 .auth {
+  max-width: 100%;
 }
 .auth-header {
   margin-top: 0;

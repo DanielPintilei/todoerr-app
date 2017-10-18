@@ -15,7 +15,7 @@ class StatefulTodoList extends Component {
     fetchData: PropTypes.func.isRequired,
   }
   componentDidMount () {
-    this.props.fetchData('/todos/react')
+    this.props.fetchData('/todos')
   }
   render () {
     return <TodoList {...this.props} />
