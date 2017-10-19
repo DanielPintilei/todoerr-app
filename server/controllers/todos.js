@@ -18,6 +18,7 @@ const seedTodos = (req, res) => {
     res.send(results)
   })
 }
+
 const getAll = (req, res) => {
   if (!req.payload._id) {
     res.status(401).json({
@@ -30,12 +31,14 @@ const getAll = (req, res) => {
     })
   }
 }
+
 const getById = (req, res) => {
   Todos.findById({ _id: req.params.id }, (err, todo) => {
     if (err) throw err
     res.send(todo)
   })
 }
+
 const postTodo = (req, res) => {
   if (req.body.id) {
     if (req.body.text) {
@@ -73,6 +76,7 @@ const postTodo = (req, res) => {
     })
   }
 }
+
 const toggleAll = (req, res) => {
   Todos.update(
     {},
@@ -86,12 +90,14 @@ const toggleAll = (req, res) => {
     }
   )
 }
+
 const deleteById = (req, res) => {
   Todos.findByIdAndRemove(req.body.id, err => {
     if (err) throw err
     res.send('Success')
   })
 }
+
 const deleteAll = (req, res) => {
   req.body.ids.forEach(id => {
     Todos.findByIdAndRemove(id, err => {

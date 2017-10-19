@@ -2,17 +2,26 @@ import axios from 'axios'
 
 axios.defaults.baseURL = process.env.REACT_APP_API
 
-const requestLogin = creds => ({
+const http = (method, url, params, auth) => {
+  const body = method === 'get' ? 'params' : 'data'
+  const config = {
+    method,
+    url,
+    [body]: params || {},
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+  }
+  return axios.request(config)
+}
+
+const requestLogin = () => ({
   type: 'LOGIN_REQUEST',
   isFetching: true,
   isAuthenticated: false,
-  creds,
 })
-const receiveLogin = user => ({
+const receiveLogin = () => ({
   type: 'LOGIN_SUCCESS',
   isFetching: false,
   isAuthenticated: true,
-  id_token: user.id_token,
 })
 const loginError = message => ({
   type: 'LOGIN_FAILURE',
@@ -21,54 +30,23 @@ const loginError = message => ({
   message,
 })
 export const loginUser = creds => dispatch => {
-  // const config = {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  //   body: `username=${creds.username}&password=${creds.password}`,
-  // }
-  // We dispatch requestLogin to kickoff the call to the API
-  dispatch(requestLogin(creds))
-  // return fetch('http://localhost:3300/sessions/create', config)
-  //   .then(response => response.json().then(user => ({ user, response })))
-  //   .then(({ user, response }) => {
-  //     if (!response.ok) {
-  //       // If there was a problem, we want to
-  //       // dispatch the error condition
-  //       dispatch(loginError(user.message))
-  //       return Promise.reject(user)
-  //     } else {
-  //       // If login was successful, set the token in local storage
-  //       localStorage.setItem('id_token', user.id_token)
-  //       localStorage.setItem('id_token', user.access_token)
-  //       // Dispatch the success action
-  //       dispatch(receiveLogin(user))
-  //     }
-  //   })
-  //   .catch(err => console.log('Error: ', err))
-  return (
-    axios
-      .post('/login', {
-        email: 'daniel@assist.ro',
-        password: '123',
-      })
-      .then(res => {
-        // console.log(res)
-        if (res.status < 200 && res.status > 304) {
-          dispatch(loginError(res.data.user.message))
-          throw Error(res.status)
-        }
-        dispatch(todosIsLoading(false))
-        return res
-      })
-      // .then(({ data: { user } }) => {
-      .then(res => {
-        console.log(res)
-        localStorage.setItem('id_token', res.data.user.id_token)
-        localStorage.setItem('id_token', res.data.user.access_token)
-        dispatch(receiveLogin(res.data.user))
-      })
-      .catch(() => dispatch(todosHasErrored(true)))
-  )
+  dispatch(requestLogin())
+  return axios
+    .post('/login', creds)
+    .then(res => {
+      // console.log(res)
+      if (res.status < 200 && res.status > 304) {
+        dispatch(loginError(res.data.message))
+        throw Error(res.status)
+      }
+      dispatch(todosIsLoading(false))
+      return res
+    })
+    .then(({ data }) => {
+      localStorage.setItem('token', data.token)
+      dispatch(receiveLogin())
+    })
+    .catch(() => dispatch(todosHasErrored(true)))
 }
 
 const requestLogout = () => ({
@@ -83,8 +61,7 @@ const receiveLogout = () => ({
 })
 export const logoutUser = () => dispatch => {
   dispatch(requestLogout())
-  localStorage.removeItem('id_token')
-  localStorage.removeItem('access_token')
+  localStorage.removeItem('token')
   dispatch(receiveLogout())
 }
 
@@ -102,8 +79,9 @@ const todosFetchDataSuccess = todos => ({
 })
 export const todosFetchData = url => dispatch => {
   dispatch(todosIsLoading(true))
-  axios(url)
+  http('get', url)
     .then(res => {
+      // console.log(res)
       if (res.status < 200 && res.status > 304) throw Error(res.status)
       dispatch(todosIsLoading(false))
       return res
@@ -125,9 +103,9 @@ const addTodoLocal = (text, id) => ({
   text,
 })
 export const addTodo = text => dispatch => {
-  axios
-    .post('/todo', { text, completed: false })
-    .then(res => dispatch(addTodoLocal(text, res.data)))
+  http('post', '/todo', { text, completed: false }).then(res =>
+    dispatch(addTodoLocal(text, res.data))
+  )
 }
 
 export const setVisibilityFilter = filter => ({
@@ -140,9 +118,9 @@ const toggleTodoLocal = id => ({
   id,
 })
 export const toggleTodo = (id, completed) => dispatch => {
-  axios
-    .post('/todo', { id, completed: !completed })
-    .then(res => dispatch(toggleTodoLocal(id)))
+  http('post', '/todo', { id, completed: !completed }).then(res =>
+    dispatch(toggleTodoLocal(id))
+  )
 }
 
 export const toggleCheckboxAll = checked => ({
@@ -155,9 +133,9 @@ const toggleAllLocal = checked => ({
   checked,
 })
 export const toggleAll = checked => dispatch => {
-  axios
-    .post('/todo-all', { completed: checked })
-    .then(res => dispatch(toggleAllLocal(checked)))
+  http('post', '/todo-all', { completed: checked }).then(res =>
+    dispatch(toggleAllLocal(checked))
+  )
 }
 
 const editTodoLocal = (id, text) => ({
@@ -166,7 +144,7 @@ const editTodoLocal = (id, text) => ({
   text,
 })
 export const editTodo = (id, text) => dispatch => {
-  axios.post('/todo', { id, text }).then(dispatch(editTodoLocal(id, text)))
+  http('post', '/todo', { id, text }).then(dispatch(editTodoLocal(id, text)))
 }
 
 const deleteTodoLocal = id => ({
@@ -174,14 +152,12 @@ const deleteTodoLocal = id => ({
   id,
 })
 export const deleteTodo = id => dispatch => {
-  axios.delete('/todo', { data: { id } }).then(dispatch(deleteTodoLocal(id)))
+  http('delete', '/todo', { id }).then(dispatch(deleteTodoLocal(id)))
 }
 
 const deleteCompletedLocal = () => ({
   type: 'DELETE_COMPLETED',
 })
 export const deleteCompleted = ids => dispatch => {
-  axios
-    .delete('/todos', { data: { ids } })
-    .then(dispatch(deleteCompletedLocal()))
+  http('delete', '/todos', { ids }).then(dispatch(deleteCompletedLocal()))
 }

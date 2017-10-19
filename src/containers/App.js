@@ -6,9 +6,7 @@ import Auth from '../components/Auth'
 import Footer from '../components/Footer'
 import AddTodo from './AddTodo'
 import VisibleTodoList from './VisibleTodoList'
-// import { authSetToken, authDiscardToken, authSetUser } from '../actions'
-// import { loginUser, logoutUser } from '../actions'
-import { loginUser } from '../actions'
+import { loginUser, logoutUser, setAuthHeader } from '../actions'
 
 class App extends Component {
   state = {
@@ -18,20 +16,22 @@ class App extends Component {
     dispatch: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string,
-    // submitForm: PropTypes.func.isRequired,
   }
   componentDidMount () {
-    // console.log(this.props)
+    // setAuthHeader(localStorage.getItem('token'))
   }
   toggleAuth = ev => {
     ev.preventDefault()
     this.setState({ authViewToggled: !this.state.authViewToggled })
   }
-  onSubmit = ev => {
+  onSubmit = (ev, email, password) => {
     ev.preventDefault()
-    // this.props.submitForm()
-    this.props.dispatch(loginUser())
-    // console.log(this.props)
+    this.props.dispatch(
+      loginUser({
+        email,
+        password,
+      })
+    )
   }
   render () {
     const SvgSymbols = () => (
@@ -117,15 +117,15 @@ class App extends Component {
   }
 }
 
-// const mapStateToProps = state =>
-//   console.log(state) || {
-//     isAuthenticated: state.auth.isAuthenticated,
-//     errorMessage: state.auth.errorMessage,
-//   }
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  errorMessage: state.auth.errorMessage,
-})
+const mapStateToProps = state =>
+  console.log(state) || {
+    isAuthenticated: state.auth.isAuthenticated,
+    errorMessage: state.auth.errorMessage,
+  }
+// const mapStateToProps = state => ({
+//   isAuthenticated: state.auth.isAuthenticated,
+//   errorMessage: state.auth.errorMessage,
+// })
 
 // const mapStateToProps = state => ({
 //   isAuthenticated: state.auth.token || '',
