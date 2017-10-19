@@ -19,6 +19,7 @@ const auth = (
         isAuthenticated: true,
         errorMessage: '',
       }
+    case 'SIGNUP_FAILURE':
     case 'LOGIN_FAILURE':
       return {
         ...state,

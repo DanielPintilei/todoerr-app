@@ -6,7 +6,7 @@ import Auth from '../components/Auth'
 import Footer from '../components/Footer'
 import AddTodo from './AddTodo'
 import VisibleTodoList from './VisibleTodoList'
-import { loginUser, logoutUser } from '../actions'
+import { signupUser, loginUser, logoutUser } from '../actions'
 
 class App extends Component {
   state = {
@@ -21,13 +21,10 @@ class App extends Component {
     ev.preventDefault()
     this.setState({ authViewToggled: !this.state.authViewToggled })
   }
-  onSubmit = (ev, email, password) => {
+  onSubmit = (ev, creds) => {
     ev.preventDefault()
     this.props.dispatch(
-      loginUser({
-        email,
-        password,
-      })
+      this.state.authViewToggled ? loginUser(creds) : signupUser(creds)
     )
   }
   render () {

@@ -15,7 +15,11 @@ const register = (req, res) => {
   user.email = req.body.email
   user.setPassword(req.body.password)
   user.save(err => {
-    if (err) throw err
+    if (err) {
+      res.status(400)
+      res.json({ message: 'The email address is already in use' })
+      return
+    }
     const token = user.generateJwt()
     res.status(200)
     res.json({ token })
@@ -26,14 +30,14 @@ const login = (req, res) => {
   if (invalidReq(req, res)) return
   passport.authenticate('local', (err, user, info) => {
     if (err) {
-      res.status(404).json({ message: err })
+      res.status(404).json(err)
       return
     }
     if (user) {
       const token = user.generateJwt()
       res.status(200)
       res.json({ token })
-    } else res.status(401).json({ message: info })
+    } else res.status(401).json(info)
   })(req, res)
 }
 

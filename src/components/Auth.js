@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Auth = ({ authViewToggled, onToggleAuth, onSubmit }) => {
+const Auth = ({ authViewToggled, onToggleAuth, onSubmit, errorMessage }) => {
   let emailInput
   let passwordInput
   return (
@@ -10,7 +10,11 @@ const Auth = ({ authViewToggled, onToggleAuth, onSubmit }) => {
       <form
         action=''
         className='auth-form'
-        onSubmit={ev => onSubmit(ev, emailInput.value, passwordInput.value)}
+        onSubmit={ev =>
+          onSubmit(ev, {
+            email: emailInput.value,
+            password: passwordInput.value,
+          })}
       >
         <input
           type='email'
@@ -48,6 +52,7 @@ const Auth = ({ authViewToggled, onToggleAuth, onSubmit }) => {
           </button>
         </div>
       </form>
+      {errorMessage && <p className='error'>{errorMessage}</p>}
     </div>
   )
 }
@@ -56,6 +61,7 @@ Auth.propTypes = {
   authViewToggled: PropTypes.bool.isRequired,
   onToggleAuth: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
 }
 
 export default Auth

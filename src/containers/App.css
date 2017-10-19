@@ -18,6 +18,7 @@
 }
 .auth {
   max-width: 100%;
+  position: relative;
 }
 .auth-header {
   margin-top: 0;
@@ -224,4 +225,12 @@ input[type='checkbox']:not(:checked) + .icon-checkbox .on {
   position: absolute;
   bottom: 20px;
   right: 20px;
+}
+.error {
+  position: absolute;
+  bottom: -100px;
+  left: 0;
+  padding: 20px;
+  color: floralwhite;
+  background-color: mediumpurple;
 }

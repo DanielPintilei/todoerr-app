@@ -13,6 +13,30 @@ const http = (method, url, params, auth) => {
   return axios.request(config)
 }
 
+const requestSignup = () => ({
+  type: 'SIGNUP_REQUEST',
+  isFetching: true,
+  isAuthenticated: false,
+})
+const signupError = message => ({
+  type: 'SIGNUP_FAILURE',
+  isFetching: false,
+  isAuthenticated: false,
+  message,
+})
+export const signupUser = creds => dispatch => {
+  dispatch(requestSignup())
+  return axios
+    .post('/register', creds)
+    .then(({ data }) => {
+      localStorage.setItem('token', data.token)
+      dispatch(receiveLogin())
+    })
+    .catch(err => {
+      dispatch(signupError(err.response.data.message))
+    })
+}
+
 const requestLogin = () => ({
   type: 'LOGIN_REQUEST',
   isFetching: true,
@@ -33,20 +57,13 @@ export const loginUser = creds => dispatch => {
   dispatch(requestLogin())
   return axios
     .post('/login', creds)
-    .then(res => {
-      // console.log(res)
-      if (res.status < 200 && res.status > 304) {
-        dispatch(loginError(res.data.message))
-        throw Error(res.status)
-      }
-      dispatch(todosIsLoading(false))
-      return res
-    })
     .then(({ data }) => {
       localStorage.setItem('token', data.token)
       dispatch(receiveLogin())
     })
-    .catch(() => dispatch(todosHasErrored(true)))
+    .catch(err => {
+      dispatch(loginError(err.response.data.message))
+    })
 }
 
 const requestLogout = () => ({
@@ -81,20 +98,23 @@ export const todosFetchData = url => dispatch => {
   dispatch(todosIsLoading(true))
   http('get', url)
     .then(res => {
-      // console.log(res)
-      if (res.status < 200 && res.status > 304) throw Error(res.status)
       dispatch(todosIsLoading(false))
-      return res
+      return res.data
     })
-    .then(res => res.data)
     .then(todos =>
       dispatch(
         todosFetchDataSuccess(
-          todos.map(({ _id: id, text, completed }) => ({ id, text, completed }))
+          todos.map(({ _id: id, text, completed }) => ({
+            id,
+            text,
+            completed,
+          }))
         )
       )
     )
-    .catch(() => dispatch(todosHasErrored(true)))
+    .catch(() => {
+      dispatch(todosHasErrored(true))
+    })
 }
 
 const addTodoLocal = (text, id) => ({
