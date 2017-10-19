@@ -1,6 +1,9 @@
 * {
   box-sizing: border-box;
 }
+:root {
+  position: relative;
+}
 body {
   margin: 0;
   padding: 0;

@@ -6,7 +6,7 @@ import Auth from '../components/Auth'
 import Footer from '../components/Footer'
 import AddTodo from './AddTodo'
 import VisibleTodoList from './VisibleTodoList'
-import { loginUser, logoutUser, setAuthHeader } from '../actions'
+import { loginUser, logoutUser } from '../actions'
 
 class App extends Component {
   state = {
@@ -16,9 +16,6 @@ class App extends Component {
     dispatch: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string,
-  }
-  componentDidMount () {
-    // setAuthHeader(localStorage.getItem('token'))
   }
   toggleAuth = ev => {
     ev.preventDefault()
@@ -91,19 +88,44 @@ class App extends Component {
         </symbol>
       </svg>
     )
-    const { isAuthenticated, errorMessage } = this.props
+    const SvgLogout = () => (
+      <svg
+        width='24'
+        height='24'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='mediumpurple'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      >
+        <path d='M10 22H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h5' />
+        <polyline points='17 16 21 12 17 8' />
+        <line x1='21' y1='12' x2='9' y2='12' />
+      </svg>
+    )
+    const { dispatch, isAuthenticated, errorMessage } = this.props
     const { authViewToggled } = this.state
     return (
       <div className='App'>
         <SvgSymbols />
         {isAuthenticated ? (
-          <div className='book'>
-            <AddTodo />
-            <section className='main'>
-              <VisibleTodoList />
-              <Footer />
-            </section>
-          </div>
+          [
+            <div className='book' key='book'>
+              <AddTodo />
+              <section className='main'>
+                <VisibleTodoList />
+                <Footer />
+              </section>
+            </div>,
+            <button
+              className='logout'
+              key='logout'
+              onClick={() => dispatch(logoutUser())}
+            >
+              <SvgLogout />
+            </button>,
+          ]
         ) : (
           <Auth
             authViewToggled={authViewToggled}
@@ -117,26 +139,9 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state =>
-  console.log(state) || {
-    isAuthenticated: state.auth.isAuthenticated,
-    errorMessage: state.auth.errorMessage,
-  }
-// const mapStateToProps = state => ({
-//   isAuthenticated: state.auth.isAuthenticated,
-//   errorMessage: state.auth.errorMessage,
-// })
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  errorMessage: state.auth.errorMessage,
+})
 
-// const mapStateToProps = state => ({
-//   isAuthenticated: state.auth.token || '',
-// })
-
-// const mapDispatchToProps = dispatch => ({
-//   submitForm: () => {
-//     // dispatch(authSetToken('1234567890'))
-//     dispatch(loginUser())
-//   },
-// })
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App)
 export default connect(mapStateToProps)(App)
