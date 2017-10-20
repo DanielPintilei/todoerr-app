@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
@@ -5,7 +7,6 @@ const mongoose = require('mongoose')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const routes = require('./server/routes')
-const config = require('./server/config')
 
 const port = process.env.PORT || 3300
 
@@ -24,7 +25,7 @@ passport.use(
   })
 )
 
-if (!process.env.NOW) {
+if (!process.env.PRODUCTION) {
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE')
@@ -46,7 +47,7 @@ app.use((err, req, res, next) => {
   }
 })
 
-mongoose.connect(config.getDbConnectionString())
+mongoose.connect(process.env.DB)
 
 routes(app)
 

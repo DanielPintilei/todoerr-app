@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
-const config = require('../config')
 
 const Schema = mongoose.Schema
 
@@ -27,7 +26,7 @@ userSchema.methods.validPassword = function (password) {
   return this.hash === hash
 }
 userSchema.methods.generateJwt = function () {
-  const secret = config.getSecret()
+  const secret = process.env.SECRET
   return jwt.sign(
     {
       _id: this._id,

@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.16.2",
+    "dotenv": "^4.0.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-config-standard-react": "^5.0.0",
     "eslint-plugin-import": "^2.7.0",
@@ -34,6 +35,11 @@
     "eject": "react-scripts eject"
   },
   "now": {
-    "alias": "todoerr"
+    "alias": "todoerr",
+    "env": {
+      "PRODUCTION": "true",
+      "DB": "@db",
+      "SECRET": "@secret"
+    }
   }
 }

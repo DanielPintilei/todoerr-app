@@ -1,24 +1,5 @@
 const Todos = require('../models/todos')
 
-const seedTodos = (req, res) => {
-  const starterTodos = [
-    {
-      user: req.payload._id,
-      text: 'Be nice',
-      completed: false,
-    },
-    {
-      user: req.payload._id,
-      text: 'Talk less',
-      completed: false,
-    },
-  ]
-  Todos.create(starterTodos, (err, results) => {
-    if (err) throw err
-    res.send(results)
-  })
-}
-
 const getAll = (req, res) => {
   if (!req.payload._id) {
     res.status(401).json({
@@ -108,7 +89,6 @@ const deleteAll = (req, res) => {
 }
 
 module.exports = {
-  seedTodos,
   getAll,
   getById,
   postTodo,
