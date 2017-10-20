@@ -221,6 +221,14 @@ input[type='checkbox']:not(:checked) + .icon-checkbox .on {
 .filters {
   display: flex;
 }
+.clear {
+  color: mediumslateblue;
+  border: 1px solid mediumslateblue;
+}
+.clear:hover {
+  color: honeydew;
+  background-color: mediumslateblue;
+}
 .logout {
   position: absolute;
   bottom: 20px;

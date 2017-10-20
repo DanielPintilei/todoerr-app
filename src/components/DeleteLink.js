@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const DeleteLink = ({ onClick, todosToDelete }) => (
-  <button onClick={() => onClick(todosToDelete)} className='button'>
+  <button onClick={() => onClick(todosToDelete)} className='button clear'>
     Clear Completed
   </button>
 )
