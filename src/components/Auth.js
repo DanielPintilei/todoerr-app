@@ -87,8 +87,6 @@ const Auth = ({ authViewToggled, onToggleAuth, onSubmit, errorMessage }) => {
     <StyledAuth>
       <h1 className='auth-header'>{authViewToggled ? 'Log In' : 'Sign Up'}</h1>
       <AuthForm
-        action=''
-        className='auth-form'
         onSubmit={ev =>
           onSubmit(ev, {
             email: emailInput.value,

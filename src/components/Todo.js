@@ -23,18 +23,13 @@ const ListItem = styled.li`
     padding: 4px 10px;
     font-size: 15px;
     color: midnightblue;
-  }
-  .item-text:focus {
-    outline: 1px dashed plum;
-  }
-  .edit {
-    flex-shrink: 0;
-  }
-  .delete {
-    flex-shrink: 0;
+    &:focus {
+      outline: 1px dashed plum;
+    }
   }
   .edit,
   .delete {
+    flex-shrink: 0;
     opacity: 0.7;
   }
 `
@@ -42,12 +37,7 @@ const ListItem = styled.li`
 const Todo = ({ onClick, onEdit, onDelete, completed, text }) => {
   let content
   return (
-    <ListItem
-      className='item'
-      style={{
-        textDecoration: completed ? 'line-through' : 'none',
-      }}
-    >
+    <ListItem style={{ textDecoration: completed ? 'line-through' : 'none' }}>
       <label className='label-checkbox'>
         <input
           type='checkbox'

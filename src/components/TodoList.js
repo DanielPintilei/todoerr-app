@@ -21,10 +21,10 @@ const List = styled.ul`
     width: 8px;
     background-color: lavender;
     border-radius: 5px;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background-color: plum;
+    &-thumb {
+      border-radius: 5px;
+      background-color: plum;
+    }
   }
 `
 
