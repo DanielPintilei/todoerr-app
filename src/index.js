@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import App from './containers/App'
 import registerServiceWorker from './registerServiceWorker'
 import { injectGlobal } from 'styled-components'
+import { rgba } from 'polished'
 
 injectGlobal`
   * {
@@ -20,8 +21,8 @@ injectGlobal`
       sans-serif;
     background-color: slateblue;
     background-image:
-      radial-gradient( rgba(135, 208, 250, 0.1) 15%, transparent 16% ),
-      radial-gradient(rgba(135, 208, 250, 0.05) 15%, transparent 16%);
+      radial-gradient(${rgba('lightskyblue', 0.1)} 15%, transparent 16%),
+      radial-gradient(${rgba('lightskyblue', 0.05)} 15%, transparent 16%);
     background-size: 30px 30px;
     background-position: 0 0, 15px 15px;
     @media (max-width: 900px) {
@@ -53,10 +54,8 @@ injectGlobal`
     }
   }
   input[type='checkbox'] {
-    display: none;
-    &:checked + .icon-checkbox .off {
-      display: none;
-    }
+    &,
+    &:checked + .icon-checkbox .off,
     &:not(:checked) + .icon-checkbox .on {
       display: none;
     }
