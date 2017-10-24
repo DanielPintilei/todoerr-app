@@ -1,6 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import Todo from './Todo'
+
+const NoList = styled.div`
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+`
+
+const List = styled.ul`
+  flex-grow: 1;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 0;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 8px;
+    background-color: lavender;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: plum;
+  }
+`
 
 const TodoList = ({
   todos,
@@ -11,9 +37,9 @@ const TodoList = ({
   isLoading,
 }) =>
   hasErrored || isLoading ? (
-    <div className='no-list'>. . .</div>
+    <NoList>. . .</NoList>
   ) : (
-    <ul className='list'>
+    <List>
       {todos.map(todo => (
         <Todo
           key={todo.id}
@@ -23,7 +49,7 @@ const TodoList = ({
           onDelete={() => onTodoDelete(todo.id)}
         />
       ))}
-    </ul>
+    </List>
   )
 
 TodoList.propTypes = {

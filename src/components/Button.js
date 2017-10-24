@@ -1,19 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-const Button = ({ active, children, onClick }) =>
-  active ? (
-    <button className='button active'>{children}</button>
-  ) : (
-    <button onClick={onClick} className='button'>
-      {children}
-    </button>
-  )
-
-Button.propTypes = {
-  active: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired,
-  onClick: PropTypes.func.isRequired,
-}
+const Button = styled.button`
+  margin-left: 7px;
+  padding: 2px 7px;
+  color: deepskyblue;
+  background-color: transparent;
+  border: 1px solid deepskyblue;
+  border-radius: 2px;
+  &.active,
+  &:hover {
+    color: honeydew;
+    background-color: deepskyblue;
+  }
+`
 
 export default Button

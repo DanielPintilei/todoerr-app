@@ -1,10 +1,48 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
+const ListItem = styled.li`
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+  padding: 2px 8px;
+  &:hover {
+    background-color: aliceblue;
+  }
+  &:not(:hover) .edit,
+  &:not(:hover) .delete {
+    visibility: hidden;
+  }
+  .checkbox {
+    flex-shrink: 0;
+  }
+  .item-text {
+    flex-grow: 1;
+    margin: 0 10px;
+    padding: 4px 10px;
+    font-size: 15px;
+    color: midnightblue;
+  }
+  .item-text:focus {
+    outline: 1px dashed plum;
+  }
+  .edit {
+    flex-shrink: 0;
+  }
+  .delete {
+    flex-shrink: 0;
+  }
+  .edit,
+  .delete {
+    opacity: 0.7;
+  }
+`
 
 const Todo = ({ onClick, onEdit, onDelete, completed, text }) => {
   let content
   return (
-    <li
+    <ListItem
       className='item'
       style={{
         textDecoration: completed ? 'line-through' : 'none',
@@ -17,12 +55,7 @@ const Todo = ({ onClick, onEdit, onDelete, completed, text }) => {
           readOnly
           className='checkbox toggle'
         />
-        <svg
-          className='icon-checkbox'
-          width='24'
-          height='24'
-          onClick={onClick}
-        >
+        <svg className='icon-checkbox' width='24' height='24' onClick={onClick}>
           <use className='off' xlinkHref='#iconCheck' />
           <use className='on' xlinkHref='#iconCheckOn' />
         </svg>
@@ -55,7 +88,7 @@ const Todo = ({ onClick, onEdit, onDelete, completed, text }) => {
           <use className='' xlinkHref='#iconDelete' />
         </svg>
       </button>
-    </li>
+    </ListItem>
   )
 }
 

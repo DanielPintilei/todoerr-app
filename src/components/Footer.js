@@ -1,18 +1,30 @@
 import React from 'react'
 import Counter from '../containers/Counter'
-import FilterButton from '../containers/FilterButton'
-import ClearButton from '../containers/ClearButton'
+import Filter from '../containers/Filter'
+import Clear from '../containers/Clear'
+import styled from 'styled-components'
+
+const StyledFooter = styled.footer`
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  .filters {
+    display: flex;
+  }
+`
 
 const Footer = () => (
-  <footer className='footer'>
+  <StyledFooter>
     {<Counter />}
     <div className='filters'>
-      <FilterButton filter='SHOW_ALL'>All</FilterButton>
-      <FilterButton filter='SHOW_ACTIVE'>Active</FilterButton>
-      <FilterButton filter='SHOW_COMPLETED'>Completed</FilterButton>
+      <Filter filter='SHOW_ALL'>All</Filter>
+      <Filter filter='SHOW_ACTIVE'>Active</Filter>
+      <Filter filter='SHOW_COMPLETED'>Completed</Filter>
     </div>
-    <ClearButton />
-  </footer>
+    <Clear />
+  </StyledFooter>
 )
 
 export default Footer

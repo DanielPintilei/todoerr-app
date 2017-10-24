@@ -1,10 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import Button from './Button'
+
+const StyledButton = styled(Button)`
+  color: mediumslateblue;
+  border: 1px solid mediumslateblue;
+  &:hover {
+    color: honeydew;
+    background-color: mediumslateblue;
+  }
+`
 
 const ButtonDelete = ({ onClick, todosToDelete }) => (
-  <button onClick={() => onClick(todosToDelete)} className='button clear'>
+  <StyledButton onClick={() => onClick(todosToDelete)}>
     Clear Completed
-  </button>
+  </StyledButton>
 )
 
 ButtonDelete.propTypes = {

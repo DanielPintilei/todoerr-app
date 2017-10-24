@@ -4,12 +4,13 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider, connect } from 'react-redux'
 import thunk from 'redux-thunk'
 import todoApp from '../reducers'
+import styled from 'styled-components'
+import Panel from '../components/Panel'
 import Auth from '../components/Auth'
 import Footer from '../components/Footer'
 import AddTodo from './AddTodo'
 import VisibleTodoList from './VisibleTodoList'
 import { signupUser, loginUser, logoutUser } from '../actions'
-import './App.css'
 
 class AppComponent extends Component {
   state = {
@@ -104,27 +105,55 @@ class AppComponent extends Component {
         <line x1='21' y1='12' x2='9' y2='12' />
       </svg>
     )
+    const AppMain = styled.div`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @media (max-width: 900px) {
+        margin-bottom: 100px;
+        padding-right: 20px;
+        padding-left: 20px;
+      }
+      @media (min-width: 901px) {
+        width: 100vw;
+        height: 100vh;
+      }
+    `
+    const Book = styled.div`
+      display: flex;
+      flex-direction: column;
+      width: 450px;
+      max-width: 100%;
+      height: 500px;
+    `
+    const BookMain = Panel.withComponent('section').extend`
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    `
+    const ButtonLogout = styled.button`
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    `
     const { dispatch, isAuthenticated, errorMessage } = this.props
     const { authViewToggled } = this.state
     return (
-      <div className='App'>
+      <AppMain>
         <SvgSymbols />
         {isAuthenticated ? (
           [
-            <div className='book' key='book'>
+            <Book key='book'>
               <AddTodo />
-              <section className='main'>
+              <BookMain>
                 <VisibleTodoList />
                 <Footer />
-              </section>
-            </div>,
-            <button
-              className='logout'
-              key='logout'
-              onClick={() => dispatch(logoutUser())}
-            >
+              </BookMain>
+            </Book>,
+            <ButtonLogout key='logout' onClick={() => dispatch(logoutUser())}>
               <SvgLogout />
-            </button>,
+            </ButtonLogout>,
           ]
         ) : (
           <Auth
@@ -134,7 +163,7 @@ class AppComponent extends Component {
             errorMessage={errorMessage}
           />
         )}
-      </div>
+      </AppMain>
     )
   }
 }
