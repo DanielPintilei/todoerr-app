@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-let Counter = ({ counterUncompleted }) => (
+const Counter = ({ counterUncompleted }) => (
   <span className='counter'>
     {counterUncompleted === 1
       ? `1 item left`
@@ -18,6 +18,4 @@ Counter.propTypes = {
   counterUncompleted: PropTypes.number.isRequired,
 }
 
-Counter = connect(mapStateToProps)(Counter)
-
-export default Counter
+export default connect(mapStateToProps)(Counter)

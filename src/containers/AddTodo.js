@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addTodo, toggleCheckboxAll, toggleAll } from '../actions'
 
-let AddTodo = ({ dispatch, checkboxAll }) => {
+const AddTodo = ({ dispatch, checkboxAll }) => {
   let input
   let checkbox
   return (
@@ -80,6 +80,4 @@ AddTodo.propTypes = {
 
 const mapStateToProps = state => state
 
-AddTodo = connect(mapStateToProps)(AddTodo)
-
-export default AddTodo
+export default connect(mapStateToProps)(AddTodo)

@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import './App.css'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider, connect } from 'react-redux'
+import thunk from 'redux-thunk'
+import todoApp from '../reducers'
 import Auth from '../components/Auth'
 import Footer from '../components/Footer'
 import AddTodo from './AddTodo'
 import VisibleTodoList from './VisibleTodoList'
 import { signupUser, loginUser, logoutUser } from '../actions'
+import './App.css'
 
-class App extends Component {
+class AppComponent extends Component {
   state = {
     authViewToggled: false,
   }
@@ -141,4 +144,14 @@ const mapStateToProps = state => ({
   errorMessage: state.auth.errorMessage,
 })
 
-export default connect(mapStateToProps)(App)
+const AppConnected = connect(mapStateToProps)(AppComponent)
+
+const store = createStore(todoApp, applyMiddleware(thunk))
+
+const App = () => (
+  <Provider store={store}>
+    <AppConnected />
+  </Provider>
+)
+
+export default App

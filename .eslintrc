@@ -4,7 +4,8 @@
     "import/resolver": "webpack"
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "jest": true
   },
   "extends": ["standard", "standard-react"],
   "rules": {
