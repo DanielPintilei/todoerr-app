@@ -20,6 +20,7 @@ class AppComponent extends Component {
     dispatch: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string,
+    className: PropTypes.string.isRequired,
   }
   toggleAuth = ev => {
     ev.preventDefault()
@@ -105,20 +106,6 @@ class AppComponent extends Component {
         <line x1='21' y1='12' x2='9' y2='12' />
       </svg>
     )
-    const AppMain = styled.div`
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      @media (max-width: 900px) {
-        margin-bottom: 100px;
-        padding-right: 20px;
-        padding-left: 20px;
-      }
-      @media (min-width: 901px) {
-        width: 100vw;
-        height: 100vh;
-      }
-    `
     const Book = styled.div`
       display: flex;
       flex-direction: column;
@@ -140,7 +127,7 @@ class AppComponent extends Component {
     const { dispatch, isAuthenticated, errorMessage } = this.props
     const { authViewToggled } = this.state
     return (
-      <AppMain>
+      <div className={this.props.className}>
         <SvgSymbols />
         {isAuthenticated ? (
           [
@@ -163,7 +150,7 @@ class AppComponent extends Component {
             errorMessage={errorMessage}
           />
         )}
-      </AppMain>
+      </div>
     )
   }
 }
@@ -173,7 +160,22 @@ const mapStateToProps = state => ({
   errorMessage: state.auth.errorMessage,
 })
 
-const AppConnected = connect(mapStateToProps)(AppComponent)
+const StyledAppComponent = styled(AppComponent)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (max-width: 900px) {
+    margin-bottom: 100px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  @media (min-width: 901px) {
+    width: 100vw;
+    height: 100vh;
+  }
+`
+
+const AppConnected = connect(mapStateToProps)(StyledAppComponent)
 
 const store = createStore(todoApp, applyMiddleware(thunk))
 
