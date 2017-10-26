@@ -47,7 +47,8 @@ app.use((err, req, res, next) => {
   }
 })
 
-mongoose.connect(process.env.DB)
+mongoose.Promise = global.Promise
+mongoose.connect(process.env.DB, { useMongoClient: true })
 
 routes(app)
 
