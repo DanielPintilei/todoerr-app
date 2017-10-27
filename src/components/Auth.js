@@ -110,6 +110,7 @@ const Auth = ({ authViewToggled, onToggleAuth, onSubmit, errorMessage }) => {
           className='auth-input'
           placeholder='Password'
           required
+          minLength={!authViewToggled && '6'}
           ref={node => {
             passwordInput = node
           }}

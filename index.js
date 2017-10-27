@@ -1,6 +1,6 @@
 require('dotenv').config()
-
 const express = require('express')
+const helmet = require('helmet')
 const app = express()
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
@@ -8,10 +8,7 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const routes = require('./server/routes')
 
-const port = process.env.PORT || 3300
-
 const User = mongoose.model('User')
-
 passport.use(
   new LocalStrategy({ usernameField: 'email' }, (username, password, done) => {
     User.findOne({ email: username }, (err, user) => {
@@ -36,6 +33,7 @@ if (process.env.NODE_ENV !== 'production') {
     next()
   })
 }
+app.use(helmet())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(passport.initialize())
@@ -52,4 +50,5 @@ mongoose.connect(process.env.DB, { useMongoClient: true })
 
 routes(app)
 
+const port = process.env.PORT || 3300
 app.listen(port)
