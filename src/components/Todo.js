@@ -10,9 +10,11 @@ const ListItem = styled.li`
   &:hover {
     background-color: aliceblue;
   }
-  &:not(:hover) .edit,
-  &:not(:hover) .delete {
-    visibility: hidden;
+  &:not(:hover) {
+    .edit,
+    .delete {
+      visibility: hidden;
+    }
   }
   .checkbox {
     flex-shrink: 0;
