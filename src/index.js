@@ -70,3 +70,5 @@ if (process.env.NODE_ENV !== 'production') {
 render(<App />, document.getElementById('root'))
 
 registerServiceWorker()
+
+if (module.hot) module.hot.accept()
