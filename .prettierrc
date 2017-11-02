@@ -1,6 +1,0 @@
-{
-  "eslintIntegration": true,
-  "prettier.trailingComma": "all",
-  "semi": false,
-  "singleQuote": true
-}

@@ -2,7 +2,7 @@ import axios from 'axios'
 
 axios.defaults.baseURL = process.env.REACT_APP_API
 
-const http = (method, url, params, auth) => {
+const http = (method, url, params) => {
   const body = method === 'get' ? 'params' : 'data'
   const config = {
     method,

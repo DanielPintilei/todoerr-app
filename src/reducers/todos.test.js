@@ -8,12 +8,12 @@ describe('todos reducer', () => {
     expect(
       todos([], {
         type: 'ADD_TODO',
-        id: 1,
+        id: '1',
         text: 'Some todo text',
       })
     ).toEqual([
       {
-        id: 1,
+        id: '1',
         text: 'Some todo text',
         completed: false,
       },
@@ -22,25 +22,25 @@ describe('todos reducer', () => {
       todos(
         [
           {
-            id: 1,
+            id: '1',
             text: 'Some todo text',
             completed: false,
           },
         ],
         {
           type: 'ADD_TODO',
-          id: 2,
+          id: '2',
           text: 'More todo text',
         }
       )
     ).toEqual([
       {
-        id: 1,
+        id: '1',
         text: 'Some todo text',
         completed: false,
       },
       {
-        id: 2,
+        id: '2',
         text: 'More todo text',
         completed: false,
       },
