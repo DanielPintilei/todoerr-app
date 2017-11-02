@@ -117,7 +117,7 @@ export const todosFetchData = url => dispatch => {
     })
 }
 
-const addTodoLocal = (text, id) => ({
+export const addTodoLocal = (text, id) => ({
   type: 'ADD_TODO',
   id,
   text,
@@ -133,7 +133,7 @@ export const setVisibilityFilter = filter => ({
   filter,
 })
 
-const toggleTodoLocal = id => ({
+export const toggleTodoLocal = id => ({
   type: 'TOGGLE_TODO',
   id,
 })
@@ -148,7 +148,7 @@ export const toggleCheckboxAll = checked => ({
   checked,
 })
 
-const toggleAllLocal = checked => ({
+export const toggleAllLocal = checked => ({
   type: 'TOGGLE_ALL',
   checked,
 })
@@ -158,7 +158,7 @@ export const toggleAll = checked => dispatch => {
   )
 }
 
-const editTodoLocal = (id, text) => ({
+export const editTodoLocal = (id, text) => ({
   type: 'EDIT_TODO',
   id,
   text,
@@ -167,7 +167,7 @@ export const editTodo = (id, text) => dispatch => {
   http('post', '/todo', { id, text }).then(dispatch(editTodoLocal(id, text)))
 }
 
-const deleteTodoLocal = id => ({
+export const deleteTodoLocal = id => ({
   type: 'DELETE_TODO',
   id,
 })
@@ -175,7 +175,7 @@ export const deleteTodo = id => dispatch => {
   http('delete', '/todo', { id }).then(dispatch(deleteTodoLocal(id)))
 }
 
-const deleteCompletedLocal = () => ({
+export const deleteCompletedLocal = () => ({
   type: 'DELETE_COMPLETED',
 })
 export const deleteCompleted = ids => dispatch => {
