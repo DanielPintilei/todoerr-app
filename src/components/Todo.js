@@ -83,7 +83,6 @@ const Todo = ({ onClick, onEdit, onDelete, completed, text }) => {
     </ListItem>
   )
 }
-
 Todo.propTypes = {
   onClick: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,

@@ -51,7 +51,6 @@ const TodoList = ({
       ))}
     </List>
   )
-
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(
     PropTypes.shape({

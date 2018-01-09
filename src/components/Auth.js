@@ -134,7 +134,6 @@ const Auth = ({ authViewToggled, onToggleAuth, onSubmit, errorMessage }) => {
     </StyledAuth>
   )
 }
-
 Auth.propTypes = {
   authViewToggled: PropTypes.bool.isRequired,
   onToggleAuth: PropTypes.func.isRequired,

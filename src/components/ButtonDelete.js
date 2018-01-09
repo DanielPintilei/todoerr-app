@@ -17,7 +17,6 @@ const ButtonDelete = ({ onClick, todosToDelete }) => (
     Clear Completed
   </StyledButton>
 )
-
 ButtonDelete.propTypes = {
   onClick: PropTypes.func.isRequired,
   todosToDelete: PropTypes.array.isRequired,

@@ -17,13 +17,12 @@ const Counter = ({ counterUncompleted }) => (
       : `${counterUncompleted} items left`}
   </StyledCounter>
 )
+Counter.propTypes = {
+  counterUncompleted: PropTypes.number.isRequired,
+}
 
 const mapStateToProps = state => ({
   counterUncompleted: state.todos.filter(todo => !todo.completed).length,
 })
-
-Counter.propTypes = {
-  counterUncompleted: PropTypes.number.isRequired,
-}
 
 export default connect(mapStateToProps)(Counter)

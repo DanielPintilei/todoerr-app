@@ -8,7 +8,6 @@ const ButtonFilter = ({ active, children, onClick }) =>
   ) : (
     <Button onClick={onClick}>{children}</Button>
   )
-
 ButtonFilter.propTypes = {
   active: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,

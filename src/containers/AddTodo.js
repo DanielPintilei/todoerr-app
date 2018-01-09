@@ -95,7 +95,6 @@ const AddTodo = ({ dispatch, checkboxAll }) => {
     </form>
   )
 }
-
 AddTodo.propTypes = {
   dispatch: PropTypes.func.isRequired,
   checkboxAll: PropTypes.bool.isRequired,
