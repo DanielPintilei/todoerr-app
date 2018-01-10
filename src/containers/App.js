@@ -3,14 +3,16 @@ import PropTypes from 'prop-types'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider, connect } from 'react-redux'
 import thunk from 'redux-thunk'
-import todoApp from '../reducers'
+import { createEpicMiddleware } from 'redux-observable'
+import { requestSignup, requestLogin, requestLogout } from '../auth/actions'
+import rootReducers from '../rootReducers'
+import rootEpics from '../rootEpics'
 import styled from 'styled-components'
 import Panel from '../components/Panel'
 import Auth from '../components/Auth'
 import Footer from '../components/Footer'
 import AddTodo from './AddTodo'
 import VisibleTodoList from './VisibleTodoList'
-import { signupUser, loginUser, logoutUser } from '../actions'
 
 const SvgSymbols = () => (
   <svg style={{ display: 'none' }}>
@@ -121,7 +123,7 @@ class AppComponent extends Component {
   onSubmit = (ev, creds) => {
     ev.preventDefault()
     this.props.dispatch(
-      this.state.authViewToggled ? loginUser(creds) : signupUser(creds)
+      this.state.authViewToggled ? requestLogin(creds) : requestSignup(creds)
     )
   }
   render () {
@@ -139,7 +141,7 @@ class AppComponent extends Component {
                 <Footer />
               </BookMain>
             </Book>,
-            <ButtonLogout onClick={() => dispatch(logoutUser())}>
+            <ButtonLogout onClick={() => dispatch(requestLogout())}>
               <SvgLogout />
             </ButtonLogout>,
           </Fragment>
@@ -178,7 +180,8 @@ const StyledAppComponent = styled(AppComponent)`
 
 const AppConnected = connect(mapStateToProps)(StyledAppComponent)
 
-const store = createStore(todoApp, applyMiddleware(thunk))
+const epicMiddleware = createEpicMiddleware(rootEpics)
+const store = createStore(rootReducers, applyMiddleware(thunk, epicMiddleware))
 
 const App = () => (
   <Provider store={store}>

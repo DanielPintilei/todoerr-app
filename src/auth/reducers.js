@@ -1,3 +1,11 @@
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  SIGNUP_FAILURE,
+  LOGIN_FAILURE,
+  LOGOUT_SUCCESS,
+} from './constants'
+
 const auth = (
   state = {
     isFetching: false,
@@ -6,28 +14,28 @@ const auth = (
   action
 ) => {
   switch (action.type) {
-    case 'LOGIN_REQUEST':
+    case LOGIN_REQUEST:
       return {
         ...state,
         isFetching: true,
         isAuthenticated: false,
       }
-    case 'LOGIN_SUCCESS':
+    case LOGIN_SUCCESS:
       return {
         ...state,
         isFetching: false,
         isAuthenticated: true,
         errorMessage: '',
       }
-    case 'SIGNUP_FAILURE':
-    case 'LOGIN_FAILURE':
+    case SIGNUP_FAILURE:
+    case LOGIN_FAILURE:
       return {
         ...state,
         isFetching: false,
         isAuthenticated: false,
-        errorMessage: action.message,
+        errorMessage: action.payload,
       }
-    case 'LOGOUT_SUCCESS':
+    case LOGOUT_SUCCESS:
       return {
         ...state,
         isFetching: true,

@@ -91,7 +91,8 @@ const Auth = ({ authViewToggled, onToggleAuth, onSubmit, errorMessage }) => {
           onSubmit(ev, {
             email: emailInput.value,
             password: passwordInput.value,
-          })}
+          })
+        }
       >
         <input
           type='email'
@@ -110,7 +111,7 @@ const Auth = ({ authViewToggled, onToggleAuth, onSubmit, errorMessage }) => {
           className='auth-input'
           placeholder='Password'
           required
-          minLength={!authViewToggled && '6'}
+          minLength={6}
           ref={node => {
             passwordInput = node
           }}
