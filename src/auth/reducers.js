@@ -38,7 +38,7 @@ const auth = (
     case LOGOUT_SUCCESS:
       return {
         ...state,
-        isFetching: true,
+        isFetching: false,
         isAuthenticated: false,
       }
     default:
